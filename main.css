@@ -7,11 +7,11 @@ body{
 }
 
 article{
-    background-color: #91AA0A;
+    background-color: #6fdb45;
     padding-top: 20px;
     padding-bottom: 20px;
     font-size: 20px;
-    box-shadow: 10px 5px  rgb(15, 54, 7);
+    box-shadow: 10px 5px  rgb(36, 124, 18);
 }
 
 .title{
@@ -25,8 +25,8 @@ article{
     margin-bottom: 10px;
     overflow: hidden;
     
-    background-color: #6d7f07;
-    box-shadow: 10px 5px  rgb(15, 54, 7);
+    background-color: #28a1c5;
+    box-shadow: 10px 5px  rgb(0, 0, 0);
 }
 
 .navbar_element{
@@ -52,7 +52,7 @@ article{
 }
 
 .selected{
-    background-color: rgb(24, 114, 24);
+    background-color: rgb(8, 41, 189);
 }
 
 .container:hover{
@@ -80,13 +80,13 @@ footer{
     flex-direction: column;
     padding: 20px;
     background-color: #ffffff;
-    box-shadow: 10px 5px  rgb(15, 54, 7);
+    box-shadow: 10px 5px  rgb(56, 153, 36);
     
 }
 
 .button-login{
     box-shadow: 5px 5px  rgb(165, 165, 165);
-    background-color: #6d7f07;
+    background-color: #28a1c5;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -94,4 +94,8 @@ footer{
     font-size: 17px;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+#wrong-login {
+    display: none;
 }
