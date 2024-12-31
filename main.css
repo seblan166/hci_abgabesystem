@@ -96,6 +96,10 @@ footer{
     cursor: pointer;
 }
 
-#wrong-login {
+#wrong_login {
+    display: none;
+}
+
+#selected_course{
     display: none;
 }
