@@ -15,6 +15,8 @@ function addListeners() {
 // inserts a submission container into the clicked assignment container 
 function showSubmissionContainer(event) {
     event.target.innerHTML += "<div class='submission-container'>Hello World<div>"
+    console.log(courses[0])
+
 }
 
 function login(){
@@ -24,10 +26,12 @@ function login(){
     var password = document.getElementById("password").value
     console.log(username)
     if(username == correct_username && password == correct_password){
-        //window.location.href="kurse.html"
         dummyData()
+        window.location.href="kurse.html"
     }else{
         document.getElementById("wrong_login").style.display = "block"
+        dummyData()
+
     }
 }
 
@@ -53,6 +57,7 @@ class Course{
 
 function dummyData(){
     //hier wird ganz viel data initialisiert
+    console.log("dummy data")
     var ass1 = new Assignment("ass1", "gestern", "unbearbeitet", "GMCI")
     var ass2 = new Assignment("ass2", "morgen", "bearbeitet", "GMCI")
     var ass3 = new Assignment("ass3", "gestern", "unbearbeitet", "GMCI")
@@ -61,5 +66,8 @@ function dummyData(){
     var gmci = new Course("GMCI", [ass1, ass2, ass3])
     var prog1 = new Course("prog1", [ass4])
 
-    console.log(gmci)
+    courses.push(gmci)
+    courses.push(prog1)
+
+
 }
