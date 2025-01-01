@@ -55,6 +55,18 @@ class Course{
 }
 
 
+function createData() {
+    // website was already visirted, dont create data again
+    if (sessionStorage.visited) {
+        console.log("already visited")
+        return
+    }
+
+    sessionStorage.setItem("visited", "true");
+    dummyData()
+}
+
+
 function dummyData(){
     //hier wird ganz viel data initialisiert
     console.log("dummy data")
@@ -69,5 +81,14 @@ function dummyData(){
     courses.push(gmci)
     courses.push(prog1)
 
+    sessionStorage.setItem("courses", JSON.stringify(courses))
+    console.log(sessionStorage.courses)
+}
 
+
+function loadData() {
+    if (sessionStorage.courses) {
+        courses = JSON.parse(sessionStorage.getItem("courses"))
+        console.log(courses)
+    }
 }

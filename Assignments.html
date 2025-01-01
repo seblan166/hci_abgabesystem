@@ -8,10 +8,13 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
-<script>
-    document.addEventListener("DOMContentLoaded", addListeners);
-</script>
 <body>
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            addListeners();
+            loadData();
+        });
+    </script>
     <header>
         <div class="title">
             Assignmentsystem - Assignments
