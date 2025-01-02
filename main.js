@@ -14,8 +14,18 @@ function addListeners() {
 
 // inserts a submission container into the clicked assignment container 
 function showSubmissionContainer(event) {
-    event.target.innerHTML += "<div class='submission-container'>Hello World<div>"
+    document.getElementById("assignment")
+   
+    var id = event.target.getAttribute("id")
+    console.log(id)
+    
     console.log(courses[0])
+    console.log(courses[0].assignments[id-1])
+    var assignment = courses[0].assignments[id-1]
+    console.log(assignment)
+    var assignment_str = "courseName: " + assignment.courseName + " name: " + assignment.name + " dueDate: " + assignment.dueDate + " status: " + assignment.status
+    var submission_container = "<div class='submission-container'>" + assignment_str + "<div>"
+    event.target.innerHTML += submission_container
 
 }
 
@@ -87,8 +97,25 @@ function dummyData(){
 
 
 function loadData() {
-    if (sessionStorage.courses) {
-        courses = JSON.parse(sessionStorage.getItem("courses"))
-        console.log(courses)
+    if (!sessionStorage.courses) {
+        console.log("no courses found")
+        return
+    }
+
+    courses = JSON.parse(sessionStorage.getItem("courses"))
+    console.log(courses)
+    var assignment_containers = document.getElementsByClassName("assignment-container")
+    console.log(assignment_containers)
+    console.log(assignment_containers.length)
+
+    for (var i = 0; i < assignment_containers.length; i++) {
+        console.log[i]
+        console.log(courses[0])
+        console.log(courses[0].assignments[i])
+        var assignment = courses[0].assignments[i]
+        console.log(assignment)
+        var assignment_str = "courseName: " + assignment.courseName + " name: " + assignment.name + " dueDate: " + assignment.dueDate + " status: " + assignment.status
+        var submission_container = "<div class='submission-container'>" + assignment_str + "<div>"
+        assignment_containers[i].innerHTML += submission_container
     }
 }
