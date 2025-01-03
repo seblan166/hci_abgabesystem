@@ -5,10 +5,18 @@ console.log(assignment_containers)
 
 var courses = []
 
-function addListeners() {
+/*function addListeners() {
     Array.from(assignment_containers).forEach(element => {
         console.log(element)
         element.addEventListener("click", showSubmissionContainer);
+    });
+}*/
+
+// adds listeners to all html elements of the same class
+function addListeners(html_class, a_function){
+    Array.from(html_class).forEach(element => {
+        console.log(element)
+        element.addEventListener("click", a_function);
     });
 }
 
@@ -28,6 +36,8 @@ function showSubmissionContainer(event) {
     event.target.innerHTML += submission_container
 
 }
+
+
 
 // logs in if data is correct, then loads creates dummy data and saves it
 function login(){
