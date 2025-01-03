@@ -11,7 +11,7 @@
 <body>
     <script>
         document.addEventListener("DOMContentLoaded", (event) => {
-            addListeners();
+            addListeners("course_container", showAssignmentsforCourse);
             loadData();
         });
     </script>
@@ -29,13 +29,13 @@
         </div>
     </header>
     <article id="course_not_selected">        
-        <div class="container">
+        <div class="container course_container" id="c_1">
             GMCI
         </div>
-        <div class="container">
+        <div class="container course_container" id="c_2">
             Programmieren 1
         </div>
-        <div class="container">
+        <div class="container course_container" id="c_3">
             Programmieren 2
         </div>
     </article>

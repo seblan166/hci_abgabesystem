@@ -3,7 +3,7 @@ assignment_containers = document.getElementsByClassName("assignment-container")
 
 console.log(assignment_containers)
 
-var courses = []
+courses = []
 
 /*function addListeners() {
     Array.from(assignment_containers).forEach(element => {
@@ -14,7 +14,8 @@ var courses = []
 
 // adds listeners to all html elements of the same class
 function addListeners(html_class, a_function){
-    Array.from(html_class).forEach(element => {
+    elements = document.getElementsByClassName(html_class)
+    Array.from(elements).forEach(element => {
         console.log(element)
         element.addEventListener("click", a_function);
     });
@@ -22,7 +23,7 @@ function addListeners(html_class, a_function){
 
 // inserts a submission container into the clicked assignment container 
 function showSubmissionContainer(event) {
-    document.getElementById("assignment")
+    document.getElementById("assignment") //vielleicht ist das der Fehler? Es existiert kein "assignment"
    
     var id = event.target.getAttribute("id")
     console.log(id)
@@ -35,6 +36,12 @@ function showSubmissionContainer(event) {
     var submission_container = "<div class='submission-container'>" + assignment_str + "<div>"
     event.target.innerHTML += submission_container
 
+}
+
+function showAssignmentsforCourse(event){
+    var id = event.target.getAttribute("id")
+    var course = document.getElementById(id)
+    console.log(course.textContent)
 }
 
 
