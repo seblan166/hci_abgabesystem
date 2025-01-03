@@ -55,19 +55,19 @@ function showAssignmentsforCourse(event){
     platzhalter = document.getElementById("blub")
 
     courses.forEach(c => {
-        console.log("heheeee")
-        /*if (c.name.equals(course_name)){
-            for (a in c.assignments){
-                platzhalter.textContent += a.name + " " + a.dueDate + " " + a.status + "\n"
-            }
-        }*/
+        if("GMCI"==="course_name"){ // :(((((((
+            console.log("wohoooo")
+        }
+        //if (c.name.equals(course_name)){
+            c.assignments.forEach(a => {
+                platzhalter.textContent = platzhalter.textContent + a.name + " " + a.dueDate + " " + a.status
+            })
+        //}
        console.log(c.name)
        platzhalter.textContent = platzhalter.textContent + c.name
     })
-    console.log("haha")
 
 }
-
 
 
 // logs in if data is correct, then loads creates dummy data and saves it
