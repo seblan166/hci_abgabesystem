@@ -38,10 +38,34 @@ function showSubmissionContainer(event) {
 
 }
 
+// if course is clicked it shows the assignments for that course
 function showAssignmentsforCourse(event){
     var id = event.target.getAttribute("id")
     var course = document.getElementById(id)
-    console.log(course.textContent)
+
+    // gets course name
+    course_name = course.textContent
+    console.log(course_name)
+
+    document.getElementById("course_not_selected").style.display = "none"
+    document.getElementById("course_selected").style.display = "block"
+
+    document.getElementById("selected_course").textContent = course_name
+
+    platzhalter = document.getElementById("blub")
+
+    courses.forEach(c => {
+        console.log("heheeee")
+        /*if (c.name.equals(course_name)){
+            for (a in c.assignments){
+                platzhalter.textContent += a.name + " " + a.dueDate + " " + a.status + "\n"
+            }
+        }*/
+       console.log(c.name)
+       platzhalter.textContent = platzhalter.textContent + c.name
+    })
+    console.log("haha")
+
 }
 
 
