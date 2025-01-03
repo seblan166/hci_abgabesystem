@@ -1,4 +1,4 @@
-
+// variables
 assignment_containers = document.getElementsByClassName("assignment-container")
 
 console.log(assignment_containers)
@@ -29,6 +29,7 @@ function showSubmissionContainer(event) {
 
 }
 
+// logs in if data is correct, then loads creates dummy data and saves it
 function login(){
     const correct_username = "user"
     const correct_password = "user"
@@ -36,12 +37,10 @@ function login(){
     var password = document.getElementById("password").value
     console.log(username)
     if(username == correct_username && password == correct_password){
-        dummyData()
+        createData()
         window.location.href="kurse.html"
     }else{
         document.getElementById("wrong_login").style.display = "block"
-        dummyData()
-
     }
 }
 
@@ -64,38 +63,41 @@ class Course{
 
 }
 
-
+// creates and stores dummy data if it#s not there yet
 function createData() {
-    // website was already visirted, dont create data again
+    // website was already visited, dont create data again
     if (sessionStorage.visited) {
         console.log("already visited")
         return
     }
 
     sessionStorage.setItem("visited", "true");
-    dummyData()
-}
-
-
-function dummyData(){
-    //hier wird ganz viel data initialisiert
+    
+    //initialises assignments
     console.log("dummy data")
     var ass1 = new Assignment("ass1", "gestern", "unbearbeitet", "GMCI")
     var ass2 = new Assignment("ass2", "morgen", "bearbeitet", "GMCI")
     var ass3 = new Assignment("ass3", "gestern", "unbearbeitet", "GMCI")
     var ass4 = new Assignment("ass4", "gestern", "unbearbeitet", "GMCI")
     
+    //initialises courses
     var gmci = new Course("GMCI", [ass1, ass2, ass3])
     var prog1 = new Course("prog1", [ass4])
 
+    //adds courses to list
     courses.push(gmci)
     courses.push(prog1)
 
-    sessionStorage.setItem("courses", JSON.stringify(courses))
+    storeData()
     console.log(sessionStorage.courses)
 }
 
+//stores data in sessionStorage
+function storeData(){
+    sessionStorage.setItem("courses", JSON.stringify(courses))
+}
 
+// loads data from sessionStorage into courses var
 function loadData() {
     if (!sessionStorage.courses) {
         console.log("no courses found")
