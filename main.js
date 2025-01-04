@@ -20,7 +20,7 @@ function addListeners(html_class, a_function){
         element.addEventListener("click", a_function);
     });
 }
-
+ 
 // inserts a submission container into the clicked assignment container 
 function showSubmissionContainer(event) {
     document.getElementById("assignment") //vielleicht ist das der Fehler? Es existiert kein "assignment"
