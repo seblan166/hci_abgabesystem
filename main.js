@@ -93,6 +93,12 @@ function login(){
     }
 }
 
+// erstmal nur für surfer Test
+function submit(){
+    var surfer = document.getElementById("surfer")
+    surfer.src = 'images/surfer_doku.gif'
+}
+
 class Assignment{
     constructor(name, dueDate, status, courseName){
         this.name = name;
