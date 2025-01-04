@@ -23,7 +23,7 @@ function addListeners(html_class, a_function){
  
 // inserts a submission container into the clicked assignment container 
 function showSubmissionContainer(event) {
-    document.getElementById("assignment") //vielleicht ist das der Fehler? Es existiert kein "assignment"
+    //document.getElementById("assignment") 
    
     var id = event.target.getAttribute("id")
     console.log(id)
@@ -57,12 +57,19 @@ function showAssignmentsforCourse(event){
     courses.forEach(c => {
         if (c.name === course_name){
             c.assignments.forEach(a => {
-                //platzhalter.textContent = platzhalter.textContent + a.name + " " + a.dueDate + " " + a.status
+                // inserts assignment as row into html
                 var new_assignment = "<tr><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
-                document.getElementById("ass_table").innerHTML += new_assignment
+                var submission_container = "<tr>SubmissionContainerbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<tr>"
+                document.getElementById("ass_table").innerHTML += new_assignment + submission_container
             })
         }
     })
+
+    // add listeners with function that shows sumussioncontainers on click
+
+}
+
+function show_SubmissionContainer(event){
 
 }
 
