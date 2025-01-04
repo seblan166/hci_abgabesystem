@@ -58,8 +58,8 @@ function showAssignmentsforCourse(event){
         if (c.name === course_name){
             c.assignments.forEach(a => {
                 //platzhalter.textContent = platzhalter.textContent + a.name + " " + a.dueDate + " " + a.status
-                var new_assignment = "<tr id = " + c.name + a.name + "><td>" + a.name + " " + a.dueDate + " " + a.status + "</td></tr>"
-                event.target.innerHTML += new_assignment
+                var new_assignment = "<tr><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
+                document.getElementById("ass_table").innerHTML += new_assignment
             })
         }
     })
