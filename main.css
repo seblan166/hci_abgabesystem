@@ -25,6 +25,9 @@ aside{
     margin-bottom: 20px;
     overflow: hidden;
     width: 35%;
+    animation: ani2 0.4s ease forwards;
+    transform: translateX(-100px);
+    opacity: 0;
 }
 
 img{
@@ -71,7 +74,7 @@ img{
     margin-right: 4px;
     padding: 5px;
     
-    animation: ani 0.4s ease forwards;
+    animation: ani1 0.4s ease forwards;
     transform-origin: top center;
     transform: scaleY(0);
     background-color: #ffffff;
@@ -85,9 +88,16 @@ tr{
 }
 
   
-  @keyframes ani{
+  @keyframes ani1{
     100% {
         transform: scaleY(1);
+    }
+  }
+
+  @keyframes ani2{
+    100% {
+        transform:translateX(0px);
+        opacity: 1;
     }
   }
 
