@@ -42,6 +42,7 @@ function showSubmissionContainer(event) {
 function showAssignmentsforCourse(event){
     var id = event.target.getAttribute("id")
     var course = document.getElementById(id)
+    document.getElementById("submissionContainer").style.display = "none"
 
     // gets course name
     course_name = course.textContent
@@ -58,18 +59,21 @@ function showAssignmentsforCourse(event){
         if (c.name === course_name){
             c.assignments.forEach(a => {
                 // inserts assignment as row into html
-                var new_assignment = "<tr><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
-                var submission_container = "<tr>SubmissionContainerbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb<tr>"
-                document.getElementById("ass_table").innerHTML += new_assignment + submission_container
+                var new_assignment = "<tr class = 'assignment_container'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
+                document.getElementById("ass_table").innerHTML += new_assignment 
             })
         }
     })
 
     // add listeners with function that shows sumussioncontainers on click
+    addListeners("assignment_container", show_SubmissionContainer)
 
 }
 
 function show_SubmissionContainer(event){
+    document.getElementById("submissionContainer").style.display = "block"
+    sc = document.getElementById(submission_container)
+    //TODO: füge den Namen des Assignments ein
 
 }
 
