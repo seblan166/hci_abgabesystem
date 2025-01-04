@@ -124,3 +124,7 @@ footer{
 #course_selected{
     display: none
 }
+
+#submissionContainer{
+    display: none
+}
