@@ -72,7 +72,7 @@ function showAssignmentsforCourse(event){
 
 function show_SubmissionContainer(event){
     document.getElementById("submissionContainer").style.display = "block"
-    sc = document.getElementById(submission_container)
+    sc = document.getElementById("submissionContainer")
     //TODO: füge den Namen des Assignments ein
 
 }
@@ -175,4 +175,42 @@ function loadData() {
         var submission_container = "<div class='submission-container'>" + assignment_str + "<div>"
         assignment_containers[i].innerHTML += submission_container
     }
+}
+
+function allowDrop(ev) {
+    // prevent opening of dropped files in browser
+    ev.preventDefault();
+    ev.stopPropagation();
+}
+
+function dropFiles(ev) {
+    // prevent opening of dropped files in browser
+    ev.preventDefault();
+    ev.stopPropagation();
+    // get files from event
+    var files = ev.dataTransfer.files;
+    var n = files.length;
+
+    var filenames = [];
+    var filesizes = [];
+    // message that gets displayed
+    var msg = "";
+    for (var i = 0; i < n; i++) {
+        // get and save file name
+        var filename = files[i].name;
+        filenames[i] = filename;
+        // get and save file size
+        var filesize = files[i].size;
+        filesizes[i] = filesize;
+        // append to message
+        msg += filename + ", size: " + filesize + "\n";
+    }
+
+    // display file names and sizes
+    console.log(msg);
+    ev.target.innerText = msg;
+    // save file names
+    sessionStorage.setItem("filenames", filenames)
+    // save file sizes
+    sessionStorage.setItem("filesizes", filesizes)
 }
