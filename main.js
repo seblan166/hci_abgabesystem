@@ -122,6 +122,7 @@ function submit(){
         // change status 
         courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
         document.getElementById(selected_assignment).children[2].innerHTML = "bearbeitet"
+        storeData()
         
         //let surfer surf
         var surfer = document.getElementById("surfer")
@@ -156,6 +157,7 @@ class Assignment{
         this.dueDate = dueDate;
         this.status = status;
         this.courseName = courseName;
+        this.assignmentFile = null;
 
     }
 }
