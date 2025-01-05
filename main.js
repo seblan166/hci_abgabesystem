@@ -35,7 +35,7 @@ function loadNotCompletedAssignments(){
 
     // add assignment listeners for submissionbox
 
-    addListeners("assignment_container", show_SubmissionContainer)
+    addListeners("assignment_container", showSubmissionContainer)
 }
 
 
@@ -48,8 +48,8 @@ function showSubmissionContainer(event){
     text_element.textContent = "Hier bitte Abgabe einfügen"
 
 
-    selected_assignment = event.target.parentNode.id
-    console.log("id" + selected_assignment)
+    id = event.target.parentNode.id
+    getIndexesFromID(id)
     if(checkForStatus(selected_assignment) == 0){
         document.getElementById("submissionContainer").style.display = "block"
         sc = document.getElementById("submissionContainer")
@@ -148,7 +148,26 @@ function login(){
     }
 }
 
-// erstmal nur für surfer Test
+// use for assignments.html
+function submit_Assignment(){
+    text_element = document.getElementById("submissionDropFieldText")
+    if(!(text_element.textContent === "Hier bitte Abgabe einfügen")){
+        // change status 
+        courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
+        document.getElementById(selected_course + "-" + selected_assignment).children[2].innerHTML = "bearbeitet"
+        storeData()
+        
+        //let surfer surf
+        var surfer = document.getElementById("surfer")
+        surfer.src = 'images/surfer_doku.gif'
+        resetGif()
+        
+        //hide submissioncontainer when animation ends
+        setTimeout(hide_SubmissionContainer, 4000)
+    }
+}
+
+// use for kurse.html
 function submit(){
     text_element = document.getElementById("submissionDropFieldText")
     if(!(text_element.textContent === "Hier bitte Abgabe einfügen")){
