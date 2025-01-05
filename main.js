@@ -69,7 +69,6 @@ function showAssignmentsforCourse(event){
 }
 
 function show_SubmissionContainer(event){
-    resetGif()
     var surfer = document.getElementById("surfer")
     surfer.src = 'images/surfer_idle.gif'
 
@@ -84,6 +83,9 @@ function show_SubmissionContainer(event){
         sc = document.getElementById("submissionContainer")
         //TODO: füge den Namen des Assignments ein}
 
+    }
+    else if (checkForStatus(selected_assignment) == 1){
+        //TODO: Show download button instead
     }
     else{
         console.log("assignment wurde schon bearbeitet")
@@ -124,6 +126,7 @@ function submit(){
         //let surfer surf
         var surfer = document.getElementById("surfer")
         surfer.src = 'images/surfer_doku.gif'
+        resetGif()
         
         //hide submissioncontainer when animation ends
         setTimeout(hide_SubmissionContainer, 4000)
