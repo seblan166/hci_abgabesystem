@@ -27,7 +27,7 @@ function loadNotCompletedAssignments(){
             if(a.status === "unbearbeitet"){    
                 // inserts assignment as row into html
                 var assinment_id = selected_course + "-" + c.assignments.indexOf(a)
-                var new_assignment = "<tr class = 'assignment_container' id= '"+ assinment_id +"'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
+                var new_assignment = "<tr class = 'assignment_container' id= '"+ assinment_id +"'><td>" + c.name + "</td><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
                 document.getElementById("ass_table").innerHTML += new_assignment 
             }
         })
