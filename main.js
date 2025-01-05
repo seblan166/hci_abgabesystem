@@ -69,6 +69,13 @@ function showAssignmentsforCourse(event){
 }
 
 function show_SubmissionContainer(event){
+    var surfer = document.getElementById("surfer")
+    surfer.src = 'images/surfer_idle.gif'
+
+    text_element = document.getElementById("submissionDropFieldText")
+    text_element.textContent = "Hier bitte Abgabe einfügen"
+
+
     selected_assignment = event.target.parentNode.id
     console.log("id" + selected_assignment)
     if(checkForStatus(selected_assignment) == 0){
@@ -118,7 +125,7 @@ function submit(){
         surfer.src = 'images/surfer_doku.gif'
         
         //hide submissioncontainer when animation ends
-        setTimeout(hide_SubmissionContainer, 5000)
+        setTimeout(hide_SubmissionContainer, 4000)
     }
 }
 
