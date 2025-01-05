@@ -5,12 +5,8 @@ console.log(assignment_containers)
 
 courses = []
 
-/*function addListeners() {
-    Array.from(assignment_containers).forEach(element => {
-        console.log(element)
-        element.addEventListener("click", showSubmissionContainer);
-    });
-}*/
+selected_course = -1
+selected_assignment = -1
 
 // adds listeners to all html elements of the same class
 function addListeners(html_class, a_function){
@@ -57,9 +53,11 @@ function showAssignmentsforCourse(event){
 
     courses.forEach(c => {
         if (c.name === course_name){
+            selected_course = courses.indexOf(c)
             c.assignments.forEach(a => {
                 // inserts assignment as row into html
-                var new_assignment = "<tr class = 'assignment_container'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
+                var assinment_id = c.assignments.indexOf(a)
+                var new_assignment = "<tr class = 'assignment_container' id= '"+ assinment_id +"'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
                 document.getElementById("ass_table").innerHTML += new_assignment 
             })
         }
@@ -71,10 +69,24 @@ function showAssignmentsforCourse(event){
 }
 
 function show_SubmissionContainer(event){
-    document.getElementById("submissionContainer").style.display = "block"
-    sc = document.getElementById("submissionContainer")
-    //TODO: füge den Namen des Assignments ein
+    selected_assignment = event.target.parentNode.id
+    console.log("id" + selected_assignment)
+    if(checkForStatus(selected_assignment) == 0){
+        document.getElementById("submissionContainer").style.display = "block"
+        sc = document.getElementById("submissionContainer")
+        //TODO: füge den Namen des Assignments ein}
 
+    }
+    else{
+        console.log("assignment wurde schon bearbeitet")
+        document.getElementById("submissionContainer").style.display = "none"
+        //TODO: Zeug dem User ausgeben
+    }
+}
+
+function hide_SubmissionContainer(){
+    document.getElementById("submissionContainer").style.display = "none"
+    //document.getElementById("submissionContainer").innerHTML += "Works"
 }
 
 
@@ -95,8 +107,29 @@ function login(){
 
 // erstmal nur für surfer Test
 function submit(){
-    var surfer = document.getElementById("surfer")
-    surfer.src = 'images/surfer_doku.gif'
+    text_element = document.getElementById("submissionDropFieldText")
+    if(!(text_element.textContent === "Hier bitte Abgabe einfügen")){
+        // change status 
+        courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
+        document.getElementById(selected_assignment).children[2].innerHTML = "bearbeitet"
+        
+        //let surfer surf
+        var surfer = document.getElementById("surfer")
+        surfer.src = 'images/surfer_doku.gif'
+        
+        //hide submissioncontainer when animation ends
+        setTimeout(hide_SubmissionContainer, 5000)
+    }
+}
+
+
+//helpers for submitting assignments
+//returns 0 if unbearbeitet, 1 if bearbeitet and 2 if korrigiert
+function checkForStatus(assId){
+    var assignment = courses[selected_course].assignments[assId]
+    if(assignment.status === "unbearbeitet") {return 0;}
+    if(assignment.status === "bearbeitet") {return 1;}
+    if(assignment.status === "korrigiert") {return 2;}
 }
 
 class Assignment{
@@ -133,7 +166,7 @@ function createData() {
     var ass1 = new Assignment("ass1", "gestern", "unbearbeitet", "GMCI")
     var ass2 = new Assignment("ass2", "morgen", "bearbeitet", "GMCI")
     var ass3 = new Assignment("ass3", "gestern", "unbearbeitet", "GMCI")
-    var ass4 = new Assignment("ass4", "gestern", "unbearbeitet", "GMCI")
+    var ass4 = new Assignment("ass4", "gestern", "korrigiert", "GMCI")
     
     //initialises courses
     var gmci = new Course("GMCI", [ass1, ass2, ass3])
@@ -208,7 +241,7 @@ function dropFiles(ev) {
 
     // display file names and sizes
     console.log(msg);
-    ev.target.getElementsByTagName("div")[0].innerText = msg;
+    document.getElementById("submissionDropFieldText").innerText = msg;
     // save file names
     sessionStorage.setItem("filenames", filenames)
     // save file sizes
