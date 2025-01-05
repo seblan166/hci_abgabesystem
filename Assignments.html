@@ -12,8 +12,8 @@
     <script>
         //TODO: Function loads assignments
         document.addEventListener("DOMContentLoaded", (event) => {
-            addListeners("assignment_container", showSubmissionContainer);
             loadData();
+            loadNotCompletedAssignments();
         });
     </script>
     <header>
@@ -29,22 +29,25 @@
             </div>
         </div>
     </header>
-    <article style="display: none;">
-        <div class="container assignment-container" id="1">
-            Assignment 1
-        </div>
-        <div class="container assignment-container" id="2">
-            Assignment 2
-        </div>
-        <div class="container assignment-container" id="3">
-            Assignment 3
-        </div>
+    <article id="assignment_list">
+        <div id="selected_course" class="container">Hier siehst du alle noch nicht bearbeiteten Assignments!</div>
+
+        <table id="ass_table" class="container-table">
+            <tr>
+                <th>Assignment</th>
+                <th>Datum</th>
+                <th>Status</th>
+            </tr>
+            
+        </table>
     </article>
-    <article id="course_not_selected">        
-        <div class="container course_container" id="c_1">GMCI</div>
-        <div class="container course_container" id="c_2">Programmieren 1</div>
-        <div class="container course_container" id="c_3">Programmieren 2</div>
-    </article>
+    <aside id="submissionContainer" class="submissionContainer">
+        <img id="surfer" src="images/surfer_idle.gif" alt="">
+        <div class="container-login" ondrop="dropFiles(event)" ondragover="allowDrop(event)">
+            <div id = "submissionDropFieldText">Hier bitte Abgabe einfügen</div>
+            <button class="button-login" onclick="submit()">Assignment abgeben</button>
+        </div>
+    </aside>
 
     <footer>
         Assignementsystem von Gruppe 16

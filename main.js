@@ -16,22 +16,54 @@ function addListeners(html_class, a_function){
         element.addEventListener("click", a_function);
     });
 }
- 
-// inserts a submission container into the clicked assignment container 
-function showSubmissionContainer(event) {
-    //document.getElementById("assignment") 
-   
-    var id = event.target.getAttribute("id")
-    console.log(id)
-    
-    console.log(courses[0])
-    console.log(courses[0].assignments[id-1])
-    var assignment = courses[0].assignments[id-1]
-    console.log(assignment)
-    var assignment_str = "courseName: " + assignment.courseName + " name: " + assignment.name + " dueDate: " + assignment.dueDate + " status: " + assignment.status
-    var submission_container = "<div class='submission-container'>" + assignment_str + "<div>"
-    event.target.innerHTML += submission_container
 
+function loadNotCompletedAssignments(){
+    console.log("Hier")
+    document.getElementById("submissionContainer").style.display = "none"
+    // load every not yet completed assignment into the right container
+    courses.forEach(c => {
+        selected_course = courses.indexOf(c)
+        c.assignments.forEach(a => {
+            if(a.status === "unbearbeitet"){    
+                // inserts assignment as row into html
+                var assinment_id = selected_course + "-" + c.assignments.indexOf(a)
+                var new_assignment = "<tr class = 'assignment_container' id= '"+ assinment_id +"'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
+                document.getElementById("ass_table").innerHTML += new_assignment 
+            }
+        })
+    })
+
+    // add assignment listeners for submissionbox
+
+    addListeners("assignment_container", show_SubmissionContainer)
+}
+
+
+//use this when using the Assignments.html
+function showSubmissionContainer(event){
+    var surfer = document.getElementById("surfer")
+    surfer.src = 'images/surfer_idle.gif'
+
+    text_element = document.getElementById("submissionDropFieldText")
+    text_element.textContent = "Hier bitte Abgabe einfügen"
+
+
+    selected_assignment = event.target.parentNode.id
+    console.log("id" + selected_assignment)
+    if(checkForStatus(selected_assignment) == 0){
+        document.getElementById("submissionContainer").style.display = "block"
+        sc = document.getElementById("submissionContainer")
+        //TODO: füge den Namen des Assignments ein}
+
+    }
+    else if (checkForStatus(selected_assignment) == 1){
+        //TODO: Show download button instead
+    }
+    else{
+        console.log("assignment wurde schon bearbeitet")
+        document.getElementById("submissionContainer").style.display = "none"
+        //TODO: Zeug dem User ausgeben
+    }
 }
 
 // if course is clicked it shows the assignments for that course
@@ -68,6 +100,7 @@ function showAssignmentsforCourse(event){
 
 }
 
+//use this when using the Kurse.html
 function show_SubmissionContainer(event){
     var surfer = document.getElementById("surfer")
     surfer.src = 'images/surfer_idle.gif'
@@ -135,10 +168,7 @@ function submit(){
 }
 
 
-function resetGif() {
-    const surfer = document.getElementById('surfer');
-    surfer.src = "images/surfer_doku.gif" + "?t=" + new Date().getTime(); // Zeitstempel anhängen
-  }
+
 
 
 
@@ -150,6 +180,18 @@ function checkForStatus(assId){
     if(assignment.status === "bearbeitet") {return 1;}
     if(assignment.status === "korrigiert") {return 2;}
 }
+
+function getIndexesFromID(id){
+    parts = id.split('-')
+    selected_course = parts[0]
+    selected_assignment = parts[1]
+    
+}
+
+function resetGif() {
+    const surfer = document.getElementById('surfer');
+    surfer.src = "images/surfer_doku.gif" + "?t=" + new Date().getTime(); // Zeitstempel anhängen
+  }
 
 class Assignment{
     constructor(name, dueDate, status, courseName){
@@ -185,8 +227,8 @@ function createData() {
     console.log("dummy data")
     var ass1 = new Assignment("ass1", "gestern", "unbearbeitet", "GMCI")
     var ass2 = new Assignment("ass2", "morgen", "bearbeitet", "GMCI")
-    var ass3 = new Assignment("ass3", "gestern", "unbearbeitet", "GMCI")
-    var ass4 = new Assignment("ass4", "gestern", "korrigiert", "GMCI")
+    var ass3 = new Assignment("ass3", "gestern", "korrigiert", "GMCI")
+    var ass4 = new Assignment("ass4", "gestern", "unbearbeitet", "GMCI")
     
     //initialises courses
     var gmci = new Course("GMCI", [ass1, ass2, ass3])
