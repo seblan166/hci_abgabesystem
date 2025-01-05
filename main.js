@@ -208,7 +208,7 @@ function dropFiles(ev) {
 
     // display file names and sizes
     console.log(msg);
-    ev.target.innerText = msg;
+    ev.target.getElementsByTagName("div")[0].innerText = msg;
     // save file names
     sessionStorage.setItem("filenames", filenames)
     // save file sizes
