@@ -242,28 +242,27 @@ function dropFiles(ev) {
     ev.stopPropagation();
     // get files from event
     var files = ev.dataTransfer.files;
-    var n = files.length;
+    // too many files
+    if (files.length > 1) {
+        alert("only one file allowed")
+        console.log("only one file allowed")
+        // TODO: show error message to user
+        return;
+    }
 
-    var filenames = [];
-    var filesizes = [];
     // message that gets displayed
     var msg = "";
-    for (var i = 0; i < n; i++) {
-        // get and save file name
-        var filename = files[i].name;
-        filenames[i] = filename;
-        // get and save file size
-        var filesize = files[i].size;
-        filesizes[i] = filesize;
-        // append to message
-        msg += filename + ", size: " + filesize + "\n";
-    }
+    // get and save file name
+    var filename = files[0].name;
+    // get and save file size
+    var filesize = files[0].size;
+     // append to message
+    msg = filename + ", size: " + filesize + "\n";
 
     // display file names and sizes
     console.log(msg);
     document.getElementById("submissionDropFieldText").innerText = msg;
-    // save file names
-    sessionStorage.setItem("filenames", filenames)
-    // save file sizes
-    sessionStorage.setItem("filesizes", filesizes)
+    // set assigenment file of selected assignment to name and size of dropped file
+    courses[selected_course].assignments[selected_assignment].assignmentFile = {"filename": filename, "filesize": filesize};
+    storeData();
 }
