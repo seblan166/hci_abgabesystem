@@ -69,6 +69,7 @@ function showAssignmentsforCourse(event){
 }
 
 function show_SubmissionContainer(event){
+    resetGif()
     var surfer = document.getElementById("surfer")
     surfer.src = 'images/surfer_idle.gif'
 
@@ -128,6 +129,13 @@ function submit(){
         setTimeout(hide_SubmissionContainer, 4000)
     }
 }
+
+
+function resetGif() {
+    const surfer = document.getElementById('surfer');
+    surfer.src = "images/surfer_doku.gif" + "?t=" + new Date().getTime(); // Zeitstempel anhängen
+  }
+
 
 
 //helpers for submitting assignments
