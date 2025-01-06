@@ -76,12 +76,52 @@ function showSubmissionContainer(event){
 }
 
 function downloadAssignment(event){
-    // TODO: hier funktion einfügen die das assignment nach bearbeiten runterlädt
+    // content of file
+    const content = "Hier wäre ihr hochgelades Assigment.";
+    const filename = courses[selected_course].assignments[selected_assignment].assignmentFile["filename"];
+    // blob as .txt file with content
+    const blob = new Blob([content], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+
+    // create link element
+    const a = document.createElement('a');
+    // set link to file url
+    a.href = url;
+    // the name that the dowloaded file will have
+    a.download = filename
+    
+    document.body.appendChild(a);
+    // click link
+    a.click();
+    document.body.removeChild(a);
+    // garbage collection
+    window.URL.revokeObjectURL(url);
+
     console.log("download stuff")
 }
 
 function downloadGradedAssignment(event){
-    // TODO: hier funktion einfügen die die Korrektur runterlädt
+    // content of file
+    const content = "Hier wäre ihr korrigiertes Assigment.";
+    const filename = courses[selected_course].name + "_" + courses[selected_course].assignments[selected_assignment].name;
+    // blob as .txt file with content
+    const blob = new Blob([content], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+
+    // create link element
+    const a = document.createElement('a');
+    // set link to file url
+    a.href = url;
+    // the name that the dowloaded file will have
+    a.download = filename
+    
+    document.body.appendChild(a);
+    // click link
+    a.click();
+    document.body.removeChild(a);
+    // garbage collection
+    window.URL.revokeObjectURL(url);
+
     console.log("download graded stuff")
 }
 
