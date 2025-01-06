@@ -51,25 +51,38 @@ function showSubmissionContainer(event){
     id = event.target.parentNode.id
     getIndexesFromID(id)
     if(checkForStatus(selected_assignment) == 0){
-        document.getElementById("submissionContainer").style.display = "block"
-        document.getElementById("download_assignment").style.display = "none"
+        document.getElementById("submissionContainer").style.display = "block";
+        document.getElementById("download_assignment").style.display = "none";
+        document.getElementById("download_graded_assignment").style.display = "none"
         sc = document.getElementById("submissionContainer")
 
     }
     else if (checkForStatus(selected_assignment) == 1){
-        document.getElementById("download_assignment").style.display = "block"
-        document.getElementById("submissionContainer").style.display = "none"
+        document.getElementById("download_assignment").style.display = "block";
+        document.getElementById("submissionContainer").style.display = "none";
+        document.getElementById("download_graded_assignment").style.display = "none"
+    }
+    else if(checkForStatus(selected_assignment) == 2){
+        document.getElementById("submissionContainer").style.display = "none";
+        document.getElementById("download_assignment").style.display = "none";
+        document.getElementById("download_graded_assignment").style.display = "block"
     }
     else{
         console.log("assignment wurde schon bearbeitet")
-        document.getElementById("submissionContainer").style.display = "none"
-        document.getElementById("download_assignment").style.display = "none"
+        document.getElementById("submissionContainer").style.display = "none";
+        document.getElementById("download_assignment").style.display = "none";
+        document.getElementById("download_graded_assignment").style.display = "none"
     }
 }
 
 function downloadAssignment(event){
     // TODO: hier funktion einfügen die das assignment nach bearbeiten runterlädt
     console.log("download stuff")
+}
+
+function downloadGradedAssignment(event){
+    // TODO: hier funktion einfügen die die Korrektur runterlädt
+    console.log("download graded stuff")
 }
 
 // if course is clicked it shows the assignments for that course
@@ -118,19 +131,27 @@ function show_SubmissionContainer(event){
     selected_assignment = event.target.parentNode.id
     console.log("id" + selected_assignment)
     if(checkForStatus(selected_assignment) == 0){
-        document.getElementById("submissionContainer").style.display = "block"
-        document.getElementById("download_assignment").style.display = "none"
+        document.getElementById("submissionContainer").style.display = "block";
+        document.getElementById("download_assignment").style.display = "none";
+        document.getElementById("download_graded_assignment").style.display = "none"
         sc = document.getElementById("submissionContainer")
 
     }
     else if (checkForStatus(selected_assignment) == 1){
-        document.getElementById("download_assignment").style.display = "block"
-        document.getElementById("submissionContainer").style.display = "none"
+        document.getElementById("download_assignment").style.display = "block";
+        document.getElementById("submissionContainer").style.display = "none";
+        document.getElementById("download_graded_assignment").style.display = "none"
+    }
+    else if(checkForStatus(selected_assignment) == 2){
+        document.getElementById("submissionContainer").style.display = "none";
+        document.getElementById("download_assignment").style.display = "none";
+        document.getElementById("download_graded_assignment").style.display = "block"
     }
     else{
         console.log("assignment wurde schon bearbeitet")
-        document.getElementById("submissionContainer").style.display = "none"
-        document.getElementById("download_assignment").style.display = "none"
+        document.getElementById("submissionContainer").style.display = "none";
+        document.getElementById("download_assignment").style.display = "none";
+        document.getElementById("download_graded_assignment").style.display = "none"
     }
 }
 
