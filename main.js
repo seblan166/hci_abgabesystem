@@ -222,7 +222,7 @@ function submit_Assignment(){
     if(!(text_element.textContent === "Hier bitte Abgabe einfügen")){
         // change status 
         courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
-        document.getElementById(selected_course + "-" + selected_assignment).children[2].innerHTML = "bearbeitet"
+        document.getElementById(selected_course + "-" + selected_assignment).children[3].innerHTML = "bearbeitet"
         storeData()
         
         //let surfer surf
