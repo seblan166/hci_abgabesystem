@@ -59,7 +59,7 @@ function showSubmissionContainer(event){
     }
     else if (checkForStatus(selected_assignment) == 1){
         document.getElementById("download_assignment").style.display = "block";
-        document.getElementById("submissionContainer").style.display = "none";
+        document.getElementById("submissionContainer").style.display = "block";
         document.getElementById("download_graded_assignment").style.display = "none"
     }
     else if(checkForStatus(selected_assignment) == 2){
@@ -180,7 +180,7 @@ function show_SubmissionContainer(event){
     }
     else if (checkForStatus(selected_assignment) == 1){
         document.getElementById("download_assignment").style.display = "block";
-        document.getElementById("submissionContainer").style.display = "none";
+        document.getElementById("submissionContainer").style.display = "block";
         document.getElementById("download_graded_assignment").style.display = "none"
     }
     else if(checkForStatus(selected_assignment) == 2){
