@@ -129,6 +129,7 @@ function downloadGradedAssignment(event){
 function showAssignmentsforCourse(event){
     var id = event.target.getAttribute("id")
     var course = document.getElementById(id)
+    document.getElementById("backButton").style.display = "block"
     document.getElementById("submissionContainer").style.display = "none"
 
     // gets course name
