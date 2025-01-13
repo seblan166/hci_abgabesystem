@@ -149,8 +149,10 @@ function showAssignmentsforCourse(event){
             c.assignments.forEach(a => {
                 // inserts assignment as row into html
                 var assignment_id = c.assignments.indexOf(a)
-                var submission_container = '<tr id="submissionContainer-' + assignment_id + '" class="submissionContainer" style="display:none"><td rowspan="4"><aside ><img id="surfer" src="images/surfer_idle.gif" alt=""><div class="container-login" ondrop="dropFiles(event)" ondragover="allowDrop(event)"><div id = "submissionDropFieldText">Hier bitte Abgabe einfügen</div><button class="button-login" onclick="submit()">Assignment abgeben</button></div></aside></td></tr>'
-                var new_assignment = "<tr class = 'assignment_container' id= '"+ assignment_id +"' onclick='show_SubmissionContainer(" + assignment_id + ")'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>" + submission_container
+                var submission_container = '<aside class="submissionContainer" style="display:none" id="submissionContainer-' + assignment_id + '"><img class="surfer" id="surfer" src="images/surfer_idle.gif" alt=""><div class="container-login" ondrop="dropFiles(event)" ondragover="allowDrop(event)"><div id = "submissionDropFieldText">Hier bitte Abgabe einfügen</div><button class="button-login" onclick="submit()">Assignment abgeben</button></div></aside>'
+                var download_container = '<article id="download_assignment-' + assignment_id + '" style="display: none;"><button class="button-login" onclick="downloadAssignment(event)">Download Assignment</button></article>'
+                var graded_container = '<article id="download_graded_assignment-' + assignment_id + '" style="display: none;"><button class="button-login" onclick="downloadGradedAssignment(event)">Download Graded Assignment</button></article>'
+                var new_assignment = "<tr class='assignment_container' id='" + assignment_id + "' onclick='show_SubmissionContainer(" + assignment_id + ")'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr><tr><td colspan='4'>" + submission_container + download_container + graded_container + "</td></tr>"
                 document.getElementById("ass_table").innerHTML += new_assignment 
                 // add listeners with function that shows submissioncontainers on click
                 //addListeners("assignment_container", show_SubmissionContainer)
@@ -167,6 +169,9 @@ function show_SubmissionContainer(assignment_id){
 
     var submissionContainer = document.getElementById("submissionContainer-" + assignment_id)
     console.log(submissionContainer)
+    var download_container = document.getElementById("download_assignment-" + assignment_id)
+    
+    var graded_container = document.getElementById("download_graded_assignment-" + assignment_id)
 
     var surfer = document.getElementById("surfer")
     surfer.src = 'images/surfer_idle.gif'
@@ -180,26 +185,26 @@ function show_SubmissionContainer(assignment_id){
     console.log("id" + selected_assignment)
     if(checkForStatus(selected_assignment) == 0){
         submissionContainer.style.display = "block";
-        document.getElementById("download_assignment").style.display = "none";
-        document.getElementById("download_graded_assignment").style.display = "none"
+        download_container.style.display = "none";
+        graded_container.style.display = "none"
         sc = document.getElementById("submissionContainer")
 
     }
     else if (checkForStatus(selected_assignment) == 1){
-        document.getElementById("download_assignment").style.display = "block";
+        download_container.style.display = "block";
         submissionContainer.style.display = "block";
-        document.getElementById("download_graded_assignment").style.display = "none"
+        graded_container.style.display = "none"
     }
     else if(checkForStatus(selected_assignment) == 2){
         submissionContainer.style.display = "none";
-        document.getElementById("download_assignment").style.display = "none";
-        document.getElementById("download_graded_assignment").style.display = "block"
+        download_container.style.display = "none";
+        graded_container.style.display = "block"
     }
     else{
         console.log("assignment wurde schon bearbeitet")
         submissionContainer.style.display = "none";
-        document.getElementById("download_assignment").style.display = "none";
-        document.getElementById("download_graded_assignment").style.display = "none"
+        download_container.style.display = "none";
+        graded_container.style.display = "none"
     }
 }
 
