@@ -121,10 +121,11 @@ tr{
 }
 
 
-a:hover, .button-login:hover{
+a:hover, .button-login:hover, .fergot_password:hover{
     color: rgb(0, 0, 0);
     transition: 0.5s;
 }
+
 
 surfer:hover{
     transform: scale(1.2);
@@ -158,6 +159,17 @@ footer{
     padding: 15px 32px;
     text-decoration: none;
     font-size: 17px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.fergot_password{
+    box-shadow: 5px 5px 5px  rgb(165, 165, 165);
+    background-color: #28a1c5;
+    border: none;
+    color: white;
+    padding: 5px 2px;
+    text-decoration: none;
+    font-size: 12px;
     margin: 4px 2px;
     cursor: pointer;
 }
