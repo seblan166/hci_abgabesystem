@@ -228,18 +228,20 @@ function login(){
 function submit_Assignment(){
     text_element = document.getElementById("submissionDropFieldText")
     if(!(text_element.textContent === "Hier bitte Abgabe einfügen")){
-        // change status 
-        courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
-        document.getElementById(selected_course + "-" + selected_assignment).children[3].innerHTML = "bearbeitet"
-        storeData()
-        
-        //let surfer surf
-        var surfer = document.getElementById("surfer")
-        surfer.src = 'images/surfer_doku.gif'
-        resetGif()
-        
-        //hide submissioncontainer when animation ends
-        setTimeout(hide_SubmissionContainer, 4000)
+            if(!(text_element.textContent === "Hier bitte Abgabe einfügen. Die Datei ist zu groß. (Maximal 2MB)")){
+            // change status 
+            courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
+            document.getElementById(selected_course + "-" + selected_assignment).children[3].innerHTML = "bearbeitet"
+            storeData()
+            
+            //let surfer surf
+            var surfer = document.getElementById("surfer")
+            surfer.src = 'images/surfer_doku.gif'
+            resetGif()
+            
+            //hide submissioncontainer when animation ends
+            setTimeout(hide_SubmissionContainer, 4000)
+        }
     }
 }
 
@@ -247,18 +249,20 @@ function submit_Assignment(){
 function submit(){
     text_element = document.getElementById("submissionDropFieldText")
     if(!(text_element.textContent === "Hier bitte Abgabe einfügen")){
-        // change status 
-        courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
-        document.getElementById(selected_assignment).children[2].innerHTML = "bearbeitet"
-        storeData()
-        
-        //let surfer surf
-        var surfer = document.getElementById("surfer")
-        surfer.src = 'images/surfer_doku.gif'
-        resetGif()
-        
-        //hide submissioncontainer when animation ends
-        setTimeout(hide_SubmissionContainer, 4000)
+        if(!(text_element.textContent === "Hier bitte Abgabe einfügen. Die Datei ist zu groß. (Maximal 2MB)")){
+            // change status 
+            courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
+            document.getElementById(selected_assignment).children[2].innerHTML = "bearbeitet"
+            storeData()
+            
+            //let surfer surf
+            var surfer = document.getElementById("surfer")
+            surfer.src = 'images/surfer_doku.gif'
+            resetGif()
+            
+            //hide submissioncontainer when animation ends
+            setTimeout(hide_SubmissionContainer, 4000)
+        }
     }
 }
 
@@ -408,8 +412,7 @@ if (files.length > 1) {
     var filesize = files[0].size; 
     if (filesize > 2097152){
         console.log(filesize)
-        msg = "Die Datei ist zu groß. (Maximal 2MB)"
-        document.getElementById("submissionDropFieldText").innerText = "Hier bitte Abgabe einfügen. " + msg;
+        document.getElementById("submissionDropFieldText").innerText = "Hier bitte Abgabe einfügen. Die Datei ist zu groß. (Maximal 2MB)";
         return
     }
      // append to message
