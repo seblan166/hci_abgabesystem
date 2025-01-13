@@ -10,7 +10,6 @@
 </head>
 <body>
     <script>
-        //TODO: Function loads assignments
         document.addEventListener("DOMContentLoaded", (event) => {
             loadData();
             loadNotCompletedAssignments();
@@ -21,6 +20,9 @@
             Assignmentsystem - Assignments
         </div>
         <div class = 'navigation_bar'>
+            <div class = "navbar_element">
+                <a href="kurse.html" style="display: none;" id="backButton">Back</a>
+            </div>
             <div class = 'navbar_element'>
                 <a href="kurse.html">Kurse</a>
             </div>
@@ -49,9 +51,10 @@
         <button class="button-login" onclick="downloadGradedAssignment(event)">Download Graded Assignment</button>
     </article>
     <aside id="submissionContainer" class="submissionContainer">
-        <img id="surfer" src="images/surfer_idle.gif" alt="">
+        <img class="surfer" id="surfer" src="images/surfer_idle.gif" alt="">
         <div class="container-login" ondrop="dropFiles(event)" ondragover="allowDrop(event)">
             <div id = "submissionDropFieldText">Hier bitte Abgabe einfügen</div>
+            <input type="file" id="files" name="files" multiple onchange="fileSelection(this)" onclick="this.value=null;">
             <button class="button-login" onclick="submit_Assignment()">Assignment abgeben</button>
         </div>
     </aside>

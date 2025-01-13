@@ -59,7 +59,7 @@ function showSubmissionContainer(event){
     }
     else if (checkForStatus(selected_assignment) == 1){
         document.getElementById("download_assignment").style.display = "block";
-        document.getElementById("submissionContainer").style.display = "none";
+        document.getElementById("submissionContainer").style.display = "block";
         document.getElementById("download_graded_assignment").style.display = "none"
     }
     else if(checkForStatus(selected_assignment) == 2){
@@ -129,7 +129,8 @@ function downloadGradedAssignment(event){
 function showAssignmentsforCourse(event){
     var id = event.target.getAttribute("id")
     var course = document.getElementById(id)
-    //document.getElementById("submissionContainer").style.display = "none"
+
+    document.getElementById("backButton").style.display = "block"
 
     // gets course name
     course_name = course.textContent
@@ -186,7 +187,7 @@ function show_SubmissionContainer(assignment_id){
     }
     else if (checkForStatus(selected_assignment) == 1){
         document.getElementById("download_assignment").style.display = "block";
-        submissionContainer.style.display = "none";
+        submissionContainer.style.display = "block";
         document.getElementById("download_graded_assignment").style.display = "none"
     }
     else if(checkForStatus(selected_assignment) == 2){
@@ -375,26 +376,42 @@ function allowDrop(ev) {
     ev.stopPropagation();
 }
 
+
+function fileSelection(input){
+   var files = input.files
+   updateFiles(files)
+}
+
 function dropFiles(ev) {
     // prevent opening of dropped files in browser
     ev.preventDefault();
     ev.stopPropagation();
     // get files from event
     var files = ev.dataTransfer.files;
+    updateFiles(files)
     // too many files
-    if (files.length > 1) {
-        alert("only one file allowed")
-        console.log("only one file allowed")
-        // TODO: show error message to user
-        return;
-    }
+}
 
-    // message that gets displayed
+
+function updateFiles(files){
+if (files.length > 1) {
+    alert("only one file allowed")
+    console.log("only one file allowed")
+    // TODO: show error message to user
+    return;
+}
+// message that gets displayed
     var msg = "";
     // get and save file name
     var filename = files[0].name;
     // get and save file size
-    var filesize = files[0].size;
+    var filesize = files[0].size; 
+    if (filesize > 2097152){
+        console.log(filesize)
+        msg = "Die Datei ist zu groß. (Maximal 2MB)"
+        document.getElementById("submissionDropFieldText").innerText = "Hier bitte Abgabe einfügen. " + msg;
+        return
+    }
      // append to message
     msg = filename + ", size: " + filesize + "\n";
 
