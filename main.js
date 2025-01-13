@@ -384,7 +384,13 @@ function dropFiles(ev) {
     // get and save file name
     var filename = files[0].name;
     // get and save file size
-    var filesize = files[0].size;
+    var filesize = files[0].size; 
+    if (filesize > 2048){
+        console.log(filesize)
+        msg = "Die Datei ist zu groß."
+        document.getElementById("submissionDropFieldText").innerText = "Hier bitte Abgabe einfügen. " + msg;
+        return
+    }
      // append to message
     msg = filename + ", size: " + filesize + "\n";
 
