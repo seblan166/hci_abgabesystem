@@ -6,6 +6,12 @@ body{
     margin-right: 20px;
 }
 
+.arrow{
+    height: 30px;
+    float: right;
+    pointer-events: none;
+}
+
 article{
     background-color: #6fdb45;
     padding: 20px;
@@ -30,7 +36,7 @@ aside{
     opacity: 0;
 }
 
-img{
+.surfer{
     height: 180px;
     border-radius: 50%;
     transition: 0.2s;
@@ -120,7 +126,7 @@ a:hover, .button-login:hover{
     transition: 0.5s;
 }
 
-img:hover{
+surfer:hover{
     transform: scale(1.2);
 }
 
