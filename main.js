@@ -129,8 +129,8 @@ function downloadGradedAssignment(event){
 function showAssignmentsforCourse(event){
     var id = event.target.getAttribute("id")
     var course = document.getElementById(id)
+
     document.getElementById("backButton").style.display = "block"
-    document.getElementById("submissionContainer").style.display = "none"
 
     // gets course name
     course_name = course.textContent
@@ -148,20 +148,26 @@ function showAssignmentsforCourse(event){
             selected_course = courses.indexOf(c)
             c.assignments.forEach(a => {
                 // inserts assignment as row into html
-                var assinment_id = c.assignments.indexOf(a)
-                var new_assignment = "<tr class = 'assignment_container' id= '"+ assinment_id +"'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
+                var assignment_id = c.assignments.indexOf(a)
+                var submission_container = '<tr id="submissionContainer-' + assignment_id + '" class="submissionContainer" style="display:none"><td rowspan="4"><aside ><img id="surfer" src="images/surfer_idle.gif" alt=""><div class="container-login" ondrop="dropFiles(event)" ondragover="allowDrop(event)"><div id = "submissionDropFieldText">Hier bitte Abgabe einfügen</div><button class="button-login" onclick="submit()">Assignment abgeben</button></div></aside></td></tr>'
+                var new_assignment = "<tr class = 'assignment_container' id= '"+ assignment_id +"' onclick='show_SubmissionContainer(" + assignment_id + ")'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>" + submission_container
                 document.getElementById("ass_table").innerHTML += new_assignment 
+                // add listeners with function that shows submissioncontainers on click
+                //addListeners("assignment_container", show_SubmissionContainer)
             })
         }
     })
 
-    // add listeners with function that shows sumussioncontainers on click
-    addListeners("assignment_container", show_SubmissionContainer)
+    
 
 }
 
 //use this when using the Kurse.html
-function show_SubmissionContainer(event){
+function show_SubmissionContainer(assignment_id){
+
+    var submissionContainer = document.getElementById("submissionContainer-" + assignment_id)
+    console.log(submissionContainer)
+
     var surfer = document.getElementById("surfer")
     surfer.src = 'images/surfer_idle.gif'
 
@@ -169,10 +175,11 @@ function show_SubmissionContainer(event){
     text_element.textContent = "Hier bitte Abgabe einfügen"
 
 
-    selected_assignment = event.target.parentNode.id
+    selected_assignment = assignment_id//event.target.parentNode.id
+    console.log(selected_assignment)
     console.log("id" + selected_assignment)
     if(checkForStatus(selected_assignment) == 0){
-        document.getElementById("submissionContainer").style.display = "block";
+        submissionContainer.style.display = "block";
         document.getElementById("download_assignment").style.display = "none";
         document.getElementById("download_graded_assignment").style.display = "none"
         sc = document.getElementById("submissionContainer")
@@ -180,17 +187,17 @@ function show_SubmissionContainer(event){
     }
     else if (checkForStatus(selected_assignment) == 1){
         document.getElementById("download_assignment").style.display = "block";
-        document.getElementById("submissionContainer").style.display = "block";
+        submissionContainer.style.display = "block";
         document.getElementById("download_graded_assignment").style.display = "none"
     }
     else if(checkForStatus(selected_assignment) == 2){
-        document.getElementById("submissionContainer").style.display = "none";
+        submissionContainer.style.display = "none";
         document.getElementById("download_assignment").style.display = "none";
         document.getElementById("download_graded_assignment").style.display = "block"
     }
     else{
         console.log("assignment wurde schon bearbeitet")
-        document.getElementById("submissionContainer").style.display = "none";
+        submissionContainer.style.display = "none";
         document.getElementById("download_assignment").style.display = "none";
         document.getElementById("download_graded_assignment").style.display = "none"
     }
@@ -221,18 +228,20 @@ function login(){
 function submit_Assignment(){
     text_element = document.getElementById("submissionDropFieldText")
     if(!(text_element.textContent === "Hier bitte Abgabe einfügen")){
-        // change status 
-        courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
-        document.getElementById(selected_course + "-" + selected_assignment).children[3].innerHTML = "bearbeitet"
-        storeData()
-        
-        //let surfer surf
-        var surfer = document.getElementById("surfer")
-        surfer.src = 'images/surfer_doku.gif'
-        resetGif()
-        
-        //hide submissioncontainer when animation ends
-        setTimeout(hide_SubmissionContainer, 4000)
+            if(!(text_element.textContent === "Hier bitte Abgabe einfügen. Die Datei ist zu groß. (Maximal 2MB)")){
+            // change status 
+            courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
+            document.getElementById(selected_course + "-" + selected_assignment).children[3].innerHTML = "bearbeitet"
+            storeData()
+            
+            //let surfer surf
+            var surfer = document.getElementById("surfer")
+            surfer.src = 'images/surfer_doku.gif'
+            resetGif()
+            
+            //hide submissioncontainer when animation ends
+            setTimeout(hide_SubmissionContainer, 4000)
+        }
     }
 }
 
@@ -240,18 +249,20 @@ function submit_Assignment(){
 function submit(){
     text_element = document.getElementById("submissionDropFieldText")
     if(!(text_element.textContent === "Hier bitte Abgabe einfügen")){
-        // change status 
-        courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
-        document.getElementById(selected_assignment).children[2].innerHTML = "bearbeitet"
-        storeData()
-        
-        //let surfer surf
-        var surfer = document.getElementById("surfer")
-        surfer.src = 'images/surfer_doku.gif'
-        resetGif()
-        
-        //hide submissioncontainer when animation ends
-        setTimeout(hide_SubmissionContainer, 4000)
+        if(!(text_element.textContent === "Hier bitte Abgabe einfügen. Die Datei ist zu groß. (Maximal 2MB)")){
+            // change status 
+            courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
+            document.getElementById(selected_assignment).children[2].innerHTML = "bearbeitet"
+            storeData()
+            
+            //let surfer surf
+            var surfer = document.getElementById("surfer")
+            surfer.src = 'images/surfer_doku.gif'
+            resetGif()
+            
+            //hide submissioncontainer when animation ends
+            setTimeout(hide_SubmissionContainer, 4000)
+        }
     }
 }
 
@@ -263,6 +274,9 @@ function submit(){
 //helpers for submitting assignments
 //returns 0 if unbearbeitet, 1 if bearbeitet and 2 if korrigiert
 function checkForStatus(assId){
+    console.log(assId)
+    console.log(courses[selected_course].assignments)
+    console.log(courses[selected_course].assignments[assId])
     var assignment = courses[selected_course].assignments[assId]
     if(assignment.status === "unbearbeitet") {return 0;}
     if(assignment.status === "bearbeitet") {return 1;}
@@ -398,8 +412,7 @@ if (files.length > 1) {
     var filesize = files[0].size; 
     if (filesize > 2097152){
         console.log(filesize)
-        msg = "Die Datei ist zu groß. (Maximal 2MB)"
-        document.getElementById("submissionDropFieldText").innerText = "Hier bitte Abgabe einfügen. " + msg;
+        document.getElementById("submissionDropFieldText").innerText = "Hier bitte Abgabe einfügen. Die Datei ist zu groß. (Maximal 2MB)";
         return
     }
      // append to message
