@@ -387,7 +387,7 @@ function dropFiles(ev) {
     var filesize = files[0].size; 
     if (filesize > 2048){
         console.log(filesize)
-        msg = "Die Datei ist zu groß."
+        msg = "Die Datei ist zu groß. (Maximal 2MB)"
         document.getElementById("submissionDropFieldText").innerText = "Hier bitte Abgabe einfügen. " + msg;
         return
     }
