@@ -54,7 +54,7 @@
         <img class="surfer" id="surfer" src="images/surfer_idle.gif" alt="">
         <div class="container-login" ondrop="dropFiles(event)" ondragover="allowDrop(event)">
             <div id = "submissionDropFieldText">Hier bitte Abgabe einfügen</div>
-            <input type="file" id="files" name="files" multiple onchange="handleFileSelection(this)" onclick="this.value=null;">
+            <input type="file" id="files" name="files" multiple onchange="fileSelection(this)" onclick="this.value=null;">
             <button class="button-login" onclick="submit_Assignment()">Assignment abgeben</button>
         </div>
     </aside>

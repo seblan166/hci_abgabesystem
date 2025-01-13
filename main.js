@@ -367,8 +367,8 @@ function allowDrop(ev) {
 }
 
 
-function handleFileSelection(inputElement){
-   var files = inputElement.files
+function fileSelection(input){
+   var files = input.files
    updateFiles(files)
 }
 
