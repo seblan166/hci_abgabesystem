@@ -365,21 +365,31 @@ function allowDrop(ev) {
     ev.stopPropagation();
 }
 
+
+function handleFileSelection(inputElement){
+   var files = inputElement.files
+   updateFiles(files)
+}
+
 function dropFiles(ev) {
     // prevent opening of dropped files in browser
     ev.preventDefault();
     ev.stopPropagation();
     // get files from event
     var files = ev.dataTransfer.files;
+    updateFiles(files)
     // too many files
-    if (files.length > 1) {
-        alert("only one file allowed")
-        console.log("only one file allowed")
-        // TODO: show error message to user
-        return;
-    }
+}
 
-    // message that gets displayed
+
+function updateFiles(files){
+if (files.length > 1) {
+    alert("only one file allowed")
+    console.log("only one file allowed")
+    // TODO: show error message to user
+    return;
+}
+// message that gets displayed
     var msg = "";
     // get and save file name
     var filename = files[0].name;

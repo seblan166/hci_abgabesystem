@@ -30,18 +30,9 @@
         </div>
     </header>
     <article id="course_not_selected">        
-        <div class="container course_container" id="c_1">
-            GMCI 
-            <img src="images/arrow.png" alt="" class="arrow">
-        </div>
-        <div class="container course_container" id="c_2">
-            Programmieren 1
-            <img src="images/arrow.png" alt="" class="arrow">
-        </div>
-        <div class="container course_container" id="c_3">
-            Programmieren 2
-            <img src="images/arrow.png" alt="" class="arrow">
-        </div>
+        <div class="container course_container" id="c_1">GMCI<img src="images/arrow.png" alt="" class="arrow"></div>
+        <div class="container course_container" id="c_2">Programmieren 1<img src="images/arrow.png" alt="" class="arrow"></div>
+        <div class="container course_container" id="c_3">Programmieren 2<img src="images/arrow.png" alt="" class="arrow"></div>
     </article>
     <article id="course_selected">
         <div id="selected_course" class="container"></div>
@@ -65,6 +56,7 @@
             <img class="surfer" id="surfer" src="images/surfer_idle.gif" alt="">
             <div class="container-login" ondrop="dropFiles(event)" ondragover="allowDrop(event)">
                 <div id = "submissionDropFieldText">Hier bitte Abgabe einfügen</div>
+                <input type="file" id="files" name="files" multiple onchange="handleFileSelection(this)" onclick="this.value=null;">
                 <button class="button-login" onclick="submit()">Assignment abgeben</button>
             </div>
     </aside>
