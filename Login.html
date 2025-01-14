@@ -16,22 +16,27 @@
     </header>
     <article>
         <div class="container-login">
-            Benutzername:
-            <br>
-            <input type="text" id="username">
-            Passwort:
-            <br>
-            <input type="password" id="password">
-            <br>
-            <div id="wrong_login">
-                Benutzername und Passwort passen nicht zusammen
-            </div>
-            <button class="button-login" onclick="login()"> 
-                Login
-            </button>
-            <button class="forgot_password"> 
-                Passwort vergessen
-            </button>
+            <form onsubmit="login(); return false">
+                <label for="username">Benutzername:</label> 
+                <br>
+                <input type="text" id="username">
+                <br>
+                <label for="password">Passwort:</label>
+                <br>
+                <input type="password" id="password">
+                <br>
+                <div id="wrong_login">
+                    Benutzername und Passwort passen nicht zusammen
+                </div>
+                
+                <button class="button-login" type="submit"> 
+                    Login
+                </button>
+                <br>
+                <button class="forgot_password"> 
+                    Passwort vergessen
+                </button>
+            </form>
         </div>
     </article>
     <footer>
