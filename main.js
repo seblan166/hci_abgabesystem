@@ -223,7 +223,7 @@ function login(){
     console.log(username)
     if(username == correct_username && password == correct_password){
         createData()
-        window.location.href="kurse.html"
+        window.location.href="mainpage.html"
     }else{
         document.getElementById("wrong_login").style.display = "block"
     }
