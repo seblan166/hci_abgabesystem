@@ -21,10 +21,12 @@ function loadNotCompletedAssignments(){
     console.log("Hier")
     document.getElementById("submissionContainer").style.display = "none"
     // load every not yet completed assignment into the right container
+    var course_assignments_count = 0; 
     courses.forEach(c => {
         selected_course = courses.indexOf(c)
         c.assignments.forEach(a => {
             if(a.status === "unbearbeitet"){    
+                course_assignments_count++;
                 // inserts assignment as row into html
                 var assinment_id = selected_course + "-" + c.assignments.indexOf(a)
                 var new_assignment = "<tr class = 'assignment_container' id= '"+ assinment_id +"'><td>" + c.name + "</td><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr>"
@@ -33,8 +35,11 @@ function loadNotCompletedAssignments(){
         })
     })
 
-    // add assignment listeners for submissionbox
+    if (course_assignments_count == 0) {
+        document.getElementById("ass_table").innerHTML += "<tr class='assignment_container'><td colspan='4'>" + "Keine Einträge gefunden" + "</td></tr>"
+    }
 
+    // add assignment listeners for submissionbox
     addListeners("assignment_container", showSubmissionContainer)
 }
 
