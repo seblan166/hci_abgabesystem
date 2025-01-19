@@ -140,11 +140,11 @@ function showAssignmentsforCourse(event){
     document.getElementById("course_selected").style.display = "block"
 
     document.getElementById("selected_course").textContent = course_name
-
-    //platzhalter = document.getElementById("blub")
-
+    
+    var course_assignments_count = 0; 
     courses.forEach(c => {
         if (c.name === course_name){
+            course_assignments_count++;
             selected_course = courses.indexOf(c)
             c.assignments.forEach(a => {
                 // inserts assignment as row into html
@@ -160,7 +160,10 @@ function showAssignmentsforCourse(event){
         }
     })
 
-    
+    console.log(course_assignments_count)
+    if (course_assignments_count == 0) {
+        document.getElementById("ass_table").innerHTML += "<tr class='assignment_container'><td colspan='4'>" + "Keine Einträge gefunden" + "</td></tr>"
+    }
 
 }
 
