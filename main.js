@@ -340,10 +340,28 @@ function createData() {
     
     //initialises assignments
     console.log("dummy data")
-    var ass1 = new Assignment("ass1", "gestern", "unbearbeitet", "GMCI")
-    var ass2 = new Assignment("ass2", "morgen", "bearbeitet", "GMCI")
-    var ass3 = new Assignment("ass3", "gestern", "korrigiert", "GMCI")
-    var ass4 = new Assignment("ass4", "gestern", "unbearbeitet", "GMCI")
+    //unclean day calculation? but it works
+    var day = new Date().getDate();
+    if(day < 10){
+        day = "0" + day;
+    }
+    var month = new Date().getMonth() + 1;
+    if(month < 10){
+        month = "0" + month;
+    }
+    var year = new Date().getFullYear();
+    var today = day + "." + month + "." + year;
+    var yesterday;
+    if (new Date().getDate() > 1 ){
+        yesterday = (day-1) + "." + month + "." + year;
+    }else{
+        yesterday = (new Date.getDate()-1) + "." + month-1 + "." + year;//dont simulate decr of year
+    }
+    var newDay = "03.02.2025"
+    var ass1 = new Assignment("ass1", today + " (heute)", "unbearbeitet", "GMCI")
+    var ass2 = new Assignment("ass2", newDay, "bearbeitet", "GMCI")
+    var ass3 = new Assignment("ass3", yesterday + " (gestern)", "korrigiert", "GMCI")
+    var ass4 = new Assignment("ass4", yesterday + " (gestern)", "unbearbeitet", "GMCI")
     
     //initialises courses
     var gmci = new Course("GMCI", [ass1, ass2, ass3])

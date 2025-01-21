@@ -120,7 +120,7 @@ tr{
 }
 
 
-a:hover, .button-login:hover, .fergot_password:hover{
+a:hover, .button-login:hover, .forgot_password:hover{
     color: rgb(0, 0, 0);
     transition: 0.5s;
 }
@@ -160,6 +160,7 @@ footer{
     font-size: 17px;
     margin: 4px 2px;
     cursor: pointer;
+    width: 100%;
 }
 .forgot_password{
     box-shadow: 5px 5px 5px  rgb(165, 165, 165);
@@ -171,6 +172,15 @@ footer{
     font-size: 12px;
     margin: 4px 2px;
     cursor: pointer;
+    width: 100%;
+}
+
+#username{
+    width: 100%;
+}
+
+#password{
+    width: 100%;
 }
 
 #wrong_login {
