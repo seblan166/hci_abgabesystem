@@ -162,6 +162,18 @@ footer{
     cursor: pointer;
     width: 100%;
 }
+.button-back{
+    box-shadow: 5px 5px 5px  rgb(165, 165, 165);
+    background-color: #28a1c5;
+    border: none;
+    color: white;
+    padding: 8px 10px;
+    text-decoration: none;
+    font-size: 17px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: fit-content;
+}
 .forgot_password{
     box-shadow: 5px 5px 5px  rgb(165, 165, 165);
     background-color: #28a1c5;
@@ -198,3 +210,4 @@ footer{
 #submissionContainer{
     display: none
 }
+
