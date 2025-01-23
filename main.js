@@ -232,6 +232,9 @@ function login(){
     if(username == correct_username && password == correct_password){
         createData()
         window.location.href="mainpage.html"
+    }else if(username == "tutor" && password == "tutor") {
+        createTutorData()
+        window.location.href="tutor.html"
     }else{
         document.getElementById("wrong_login").style.display = "block"
     }
@@ -361,11 +364,58 @@ function createData() {
     var ass1 = new Assignment("ass1", today + " (heute)", "unbearbeitet", "GMCI")
     var ass2 = new Assignment("ass2", newDay, "bearbeitet", "GMCI")
     var ass3 = new Assignment("ass3", yesterday + " (gestern)", "korrigiert", "GMCI")
-    var ass4 = new Assignment("ass4", yesterday + " (gestern)", "unbearbeitet", "GMCI")
+    var ass4 = new Assignment("ass4", yesterday + " (gestern)", "unbearbeitet", "Prog 1")
     
     //initialises courses
     var gmci = new Course("GMCI", [ass1, ass2, ass3])
     var prog1 = new Course("prog1", [ass4])
+
+    //adds courses to list
+    courses.push(gmci)
+    courses.push(prog1)
+
+    storeData()
+    console.log(sessionStorage.courses)
+}
+
+// creates and stores dummy data if it#s not there yet
+function createTutorData() {
+    // website was already visited, dont create data again
+    if (sessionStorage.visited) {
+        console.log("already visited")
+        return
+    }
+
+    sessionStorage.setItem("visited", "true");
+    
+    //initialises assignments
+    console.log("dummy data")
+    //unclean day calculation? but it works
+    var day = new Date().getDate();
+    if(day < 10){
+        day = "0" + day;
+    }
+    var month = new Date().getMonth() + 1;
+    if(month < 10){
+        month = "0" + month;
+    }
+    var year = new Date().getFullYear();
+    var today = day + "." + month + "." + year;
+    var yesterday;
+    if (new Date().getDate() > 1 ){
+        yesterday = (day-1) + "." + month + "." + year;
+    }else{
+        yesterday = (new Date.getDate()-1) + "." + month-1 + "." + year;//dont simulate decr of year
+    }
+    var newDay = "03.02.2025"
+    var ass1 = new Assignment("Assignment 1 - Max Mustermann", today + " (heute)", "bearbeitet", "GMCI")
+    var ass2 = new Assignment("Assignment 1 - Anna Müller", newDay, "bearbeitet", "GMCI")
+    var ass3 = new Assignment("Assignment 2 - Ben Bauer", yesterday + " (gestern)", "korrigiert", "GMCI")
+    var ass4 = new Assignment("Assignment 4 - Toni Meier", yesterday + " (gestern)", "bearbeitet", "Prog 1")
+    
+    //initialises courses
+    var gmci = new Course("GMCI", [ass1, ass2, ass3])
+    var prog1 = new Course("Prog 1", [ass4])
 
     //adds courses to list
     courses.push(gmci)

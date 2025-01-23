@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Kurse</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='tutor.js'></script>
+</head>
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            addListeners("course_container", showAssignmentsforCourse);
+            loadData();
+        });
+    </script>
+    <header>
+        <div class="title">
+            Assignmentsystem - Kurse
+        </div>
+        <div class = 'navigation_bar'>
+            <div class = 'navbar_element selected'>
+                <a href="kurse.html">Kurse</a>
+            </div>
+            <div class = 'navbar_element'>
+                <a href="Assignments.html">Assignments</a>
+            </div>
+        </div>
+    </header>
+    <article id="course_not_selected">        
+        <div class="container course_container" id="c_1">GMCI<img src="images/arrow.png" alt="" class="arrow"></div>
+        <div class="container course_container" id="c_2">Programmieren 1<img src="images/arrow.png" alt="" class="arrow"></div>
+        <div class="container course_container" id="c_3">Programmieren 2<img src="images/arrow.png" alt="" class="arrow"></div>
+    </article>
+    <article id="course_selected">
+        <a href="kurse.html" class="button-back" style="display: none;" id="backButton">Back</a>
+
+        <div id="selected_course" class="container"></div>
+
+        <table id="ass_table" class="container-table">
+            <tr>
+                <th>Assignment</th>
+                <th>Datum</th>
+                <th>Status</th>
+            </tr>
+            
+        </table>
+    </article>
+    <article id="download_assignment" style="display: none;">
+        <button class="button-login" onclick="downloadAssignment(event)">Download Assignment</button>
+    </article>
+    <article id="download_graded_assignment" style="display: none;">
+        <button class="button-login" onclick="downloadGradedAssignment(event)">Download Graded Assignment</button>
+    </article>
+    
+
+    <footer>
+        Assignementsystem von Gruppe 16
+    </footer>
+</body>
+</html> 
