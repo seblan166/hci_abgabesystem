@@ -128,7 +128,6 @@ function downloadAssignment(event){
     // garbage collection
     window.URL.revokeObjectURL(url);
 
-    alert("download stuff")
 }
 
 function downloadGradedAssignment(event){
@@ -153,7 +152,6 @@ function downloadGradedAssignment(event){
     // garbage collection
     window.URL.revokeObjectURL(url);
 
-    alert("download graded stuff")
 }
 
 // if course is clicked it shows the assignments for that course
@@ -180,8 +178,8 @@ function showAssignmentsforCourse(event){
                 // inserts assignment as row into html
                 var assignment_id = c.assignments.indexOf(a)
                 var submission_container = '<aside class="submissionContainer" style="display:none" id="submissionContainer-' + assignment_id + '"><img class="surfer" id="surfer" src="images/surfer_idle.gif" alt=""><div class="container-login" ondrop="dropFiles(event)" ondragover="allowDrop(event)"><div id = "submissionDropFieldText">Hier bitte Abgabe einfügen</div><button class="button-login" onclick="submit()">Assignment abgeben</button></div></aside>'
-                var download_container = '<article id="download_assignment-' + assignment_id + '" style="display: none;"><button class="button-login" onclick="downloadAssignment(event)">Download Assignment</button></article>'
-                var graded_container = '<article id="download_graded_assignment-' + assignment_id + '" style="display: none;"><button class="button-login" onclick="downloadGradedAssignment(event)">Download Graded Assignment</button></article>'
+                var download_container = '<article id="download_assignment-' + assignment_id + '" style="display: none;"><button class="button-login" onclick="downloadAssignment(event)">Abgabe herunterladen</button></article>'
+                var graded_container = '<article id="download_graded_assignment-' + assignment_id + '" style="display: none;"><button class="button-login" onclick="downloadGradedAssignment(event)">Korrektur herunterladen</button></article>'
                 var new_assignment = "<tr class='assignment_container' id='" + assignment_id + "' onclick='show_SubmissionContainer(" + assignment_id + ")'><td>" + a.name + "</td><td>" + a.dueDate + "</td><td>" + a.status + "</td></tr><tr><td colspan='4'>" + submission_container + download_container + graded_container + "</td></tr>"
                 document.getElementById("ass_table").innerHTML += new_assignment 
                 // add listeners with function that shows submissioncontainers on click
@@ -397,7 +395,6 @@ function createData() {
 function createTutorData() {
     // website was already visited, dont create data again
     if (sessionStorage.visited) {
-        alert("already visited")
         return
     }
 
