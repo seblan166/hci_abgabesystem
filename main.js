@@ -51,6 +51,9 @@ function showSubmissionContainer(event){
 
     id = event.target.parentNode.id
     getIndexesFromID(id)
+    var subm = document.getElementById("submissionContainer")
+    var ass = courses[selected_course].assignments[selected_assignment]
+    subm.innerHTML = ass.courseName + " " + ass.name + subm.innerHTML
     if(checkForStatus(selected_assignment) == 0){
         document.getElementById("submissionContainer").style.display = "block";
         document.getElementById("download_assignment").style.display = "none";
@@ -384,10 +387,10 @@ function createData() {
         yesterday = (new Date.getDate()-1) + "." + month-1 + "." + year;//dont simulate decr of year
     }
     var newDay = "03.02.2025"
-    var ass1 = new Assignment("ass1", today + " (heute)", "unbearbeitet", "GMCI")
-    var ass2 = new Assignment("ass2", newDay, "bearbeitet", "GMCI")
-    var ass3 = new Assignment("ass3", yesterday + " (gestern)", "korrigiert", "GMCI")
-    var ass4 = new Assignment("ass4", yesterday + " (gestern)", "unbearbeitet", "Prog 1")
+    var ass1 = new Assignment("Assignment 1", today + " (heute)", "unbearbeitet", "GMCI")
+    var ass2 = new Assignment("Assignment 2", newDay, "bearbeitet", "GMCI")
+    var ass3 = new Assignment("Assignment 3", yesterday + " (gestern)", "korrigiert", "GMCI")
+    var ass4 = new Assignment("Assignment 4", yesterday + " (gestern)", "unbearbeitet", "Prog 1")
     
     //initialises courses
     var gmci = new Course("GMCI", [ass1, ass2, ass3])
