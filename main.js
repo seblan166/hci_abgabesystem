@@ -54,7 +54,8 @@ function showSubmissionContainer(event){
     if(checkForStatus(selected_assignment) == 0){
         document.getElementById("submissionContainer").style.display = "block";
         document.getElementById("download_assignment").style.display = "none";
-        document.getElementById("download_graded_assignment").style.display = "none"
+        document.getElementById("download_graded_assignment").style.display = "none";
+        document.getElementById("surfer_idle").style.display = "none";
         sc = document.getElementById("submissionContainer")
 
     }
@@ -62,17 +63,20 @@ function showSubmissionContainer(event){
         document.getElementById("download_assignment").style.display = "block";
         document.getElementById("submissionContainer").style.display = "block";
         document.getElementById("download_graded_assignment").style.display = "none"
+        document.getElementById("surfer_idle").style.display = "none";
     }
     else if(checkForStatus(selected_assignment) == 2){
         document.getElementById("submissionContainer").style.display = "none";
         document.getElementById("download_assignment").style.display = "none";
         document.getElementById("download_graded_assignment").style.display = "block"
+        document.getElementById("surfer_idle").style.display = "block";
     }
     else{
         alert("assignment wurde schon bearbeitet")
         document.getElementById("submissionContainer").style.display = "none";
         document.getElementById("download_assignment").style.display = "none";
         document.getElementById("download_graded_assignment").style.display = "none"
+        document.getElementById("surfer_idle").style.display = "block";
     }
 }
 
@@ -82,6 +86,7 @@ function hide_all_SubmissionContainers(){
     console.log(course)
 
     document.getElementById("backButton").style.display = "block"
+    document.getElementById("surfer_idle").style.display = "block";
 
 
     // gets course name
@@ -215,6 +220,7 @@ function show_SubmissionContainer(assignment_id){
         submissionContainer.style.display = "block";
         download_container.style.display = "none";
         graded_container.style.display = "none"
+        document.getElementById("surfer_idle").style.display = "none";
         sc = document.getElementById("submissionContainer")
 
     }
@@ -222,17 +228,20 @@ function show_SubmissionContainer(assignment_id){
         download_container.style.display = "block";
         submissionContainer.style.display = "block";
         graded_container.style.display = "none"
+        document.getElementById("surfer_idle").style.display = "none";
     }
     else if(checkForStatus(selected_assignment) == 2){
         submissionContainer.style.display = "none";
         download_container.style.display = "none";
         graded_container.style.display = "block"
+        document.getElementById("surfer_idle").style.display = "block";
     }
     else{
         alert("assignment wurde schon bearbeitet")
         submissionContainer.style.display = "none";
         download_container.style.display = "none";
         graded_container.style.display = "none"
+        document.getElementById("surfer_idle").style.display = "block";
     }
 }
 

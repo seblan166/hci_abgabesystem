@@ -61,6 +61,7 @@ function hide_all_SubmissionContainers(){
     console.log(course)
 
     document.getElementById("backButton").style.display = "block"
+    document.getElementById("surfer_idle").style.display = "block";
 
 
     // gets course name
@@ -106,17 +107,20 @@ function show_SubmissionContainer(assignment_id){
         download_container.style.display = "block";
         submissionContainer.style.display = "block";
         graded_container.style.display = "none"
+        document.getElementById("surfer_idle").style.display = "none";
     }
     else if(checkForStatus(selected_assignment) == 1){
         submissionContainer.style.display = "none";
         download_container.style.display = "none";
         graded_container.style.display = "block"
+        document.getElementById("surfer_idle").style.display = "block";
     }
     else{
         alert("assignment wurde schon bearbeitet")
         submissionContainer.style.display = "none";
         download_container.style.display = "none";
         graded_container.style.display = "none"
+        document.getElementById("surfer_idle").style.display = "block";
     }
 }
 
