@@ -1,8 +1,6 @@
 // variables
 assignment_containers = document.getElementsByClassName("assignment-container")
 
-console.log(assignment_containers)
-
 courses = []
 
 selected_course = -1
@@ -12,13 +10,11 @@ selected_assignment = -1
 function addListeners(html_class, a_function){
     elements = document.getElementsByClassName(html_class)
     Array.from(elements).forEach(element => {
-        console.log(element)
         element.addEventListener("click", a_function);
     });
 }
 
 function loadNotCompletedAssignments(){
-    console.log("Hier")
     document.getElementById("submissionContainer").style.display = "none"
     // load every not yet completed assignment into the right container
     var course_assignments_count = 0; 
@@ -73,11 +69,41 @@ function showSubmissionContainer(event){
         document.getElementById("download_graded_assignment").style.display = "block"
     }
     else{
-        console.log("assignment wurde schon bearbeitet")
+        alert("assignment wurde schon bearbeitet")
         document.getElementById("submissionContainer").style.display = "none";
         document.getElementById("download_assignment").style.display = "none";
         document.getElementById("download_graded_assignment").style.display = "none"
     }
+}
+
+function hide_all_SubmissionContainers(){
+    console.log("here")
+    var course = document.getElementById(selected_course)
+    console.log(course)
+
+    document.getElementById("backButton").style.display = "block"
+
+
+    // gets course name
+    course_name = courses[selected_course].name
+    console.log(course_name)
+    
+    var course_assignments_count = 0; 
+    courses.forEach(c => {
+        if (c.name === course_name){
+            course_assignments_count++;
+            selected_course = courses.indexOf(c)
+            c.assignments.forEach(a => {
+                console.log("here2")
+
+                // inserts assignment as row into html
+                var assignment_id = c.assignments.indexOf(a)
+                document.getElementById("submissionContainer-" + assignment_id).style.display = "none"                
+                document.getElementById("download_assignment-" + assignment_id).style.display = "none"
+                document.getElementById("download_graded_assignment-" + assignment_id).style.display = "none"
+            })
+        }
+    })
 }
 
 function downloadAssignment(event){
@@ -102,7 +128,7 @@ function downloadAssignment(event){
     // garbage collection
     window.URL.revokeObjectURL(url);
 
-    console.log("download stuff")
+    alert("download stuff")
 }
 
 function downloadGradedAssignment(event){
@@ -127,7 +153,7 @@ function downloadGradedAssignment(event){
     // garbage collection
     window.URL.revokeObjectURL(url);
 
-    console.log("download graded stuff")
+    alert("download graded stuff")
 }
 
 // if course is clicked it shows the assignments for that course
@@ -139,7 +165,6 @@ function showAssignmentsforCourse(event){
 
     // gets course name
     course_name = course.textContent
-    //console.log(course_name)
 
     document.getElementById("course_not_selected").style.display = "none"
     document.getElementById("course_selected").style.display = "block"
@@ -165,7 +190,6 @@ function showAssignmentsforCourse(event){
         }
     })
 
-    console.log(course_assignments_count)
     if (course_assignments_count == 0) {
         document.getElementById("ass_table").innerHTML += "<tr class='assignment_container'><td colspan='4'>" + "Keine Einträge gefunden" + "</td></tr>"
     }
@@ -174,9 +198,8 @@ function showAssignmentsforCourse(event){
 
 //use this when using the Kurse.html
 function show_SubmissionContainer(assignment_id){
-
+    hide_all_SubmissionContainers()
     var submissionContainer = document.getElementById("submissionContainer-" + assignment_id)
-    console.log(submissionContainer)
     var download_container = document.getElementById("download_assignment-" + assignment_id)
     
     var graded_container = document.getElementById("download_graded_assignment-" + assignment_id)
@@ -189,8 +212,7 @@ function show_SubmissionContainer(assignment_id){
 
 
     selected_assignment = assignment_id//event.target.parentNode.id
-    console.log(selected_assignment)
-    console.log("id" + selected_assignment)
+
     if(checkForStatus(selected_assignment) == 0){
         submissionContainer.style.display = "block";
         download_container.style.display = "none";
@@ -209,7 +231,7 @@ function show_SubmissionContainer(assignment_id){
         graded_container.style.display = "block"
     }
     else{
-        console.log("assignment wurde schon bearbeitet")
+        alert("assignment wurde schon bearbeitet")
         submissionContainer.style.display = "none";
         download_container.style.display = "none";
         graded_container.style.display = "none"
@@ -228,7 +250,6 @@ function login(){
     const correct_password = "user"
     var username = document.getElementById("username").value
     var password = document.getElementById("password").value
-    console.log(username)
     if(username == correct_username && password == correct_password){
         createData()
         window.location.href="mainpage.html"
@@ -290,9 +311,6 @@ function submit(){
 //helpers for submitting assignments
 //returns 0 if unbearbeitet, 1 if bearbeitet and 2 if korrigiert
 function checkForStatus(assId){
-    console.log(assId)
-    console.log(courses[selected_course].assignments)
-    console.log(courses[selected_course].assignments[assId])
     var assignment = courses[selected_course].assignments[assId]
     if(assignment.status === "unbearbeitet") {return 0;}
     if(assignment.status === "bearbeitet") {return 1;}
@@ -309,7 +327,7 @@ function getIndexesFromID(id){
 function resetGif() {
     const surfer = document.getElementById('surfer');
     surfer.src = "images/surfer_doku.gif" + "?t=" + new Date().getTime(); // Zeitstempel anhängen
-  }
+}
 
 class Assignment{
     constructor(name, dueDate, status, courseName){
@@ -335,14 +353,12 @@ class Course{
 function createData() {
     // website was already visited, dont create data again
     if (sessionStorage.visited) {
-        console.log("already visited")
         return
     }
 
     sessionStorage.setItem("visited", "true");
     
     //initialises assignments
-    console.log("dummy data")
     //unclean day calculation? but it works
     var day = new Date().getDate();
     if(day < 10){
@@ -375,21 +391,19 @@ function createData() {
     courses.push(prog1)
 
     storeData()
-    console.log(sessionStorage.courses)
 }
 
 // creates and stores dummy data if it#s not there yet
 function createTutorData() {
     // website was already visited, dont create data again
     if (sessionStorage.visited) {
-        console.log("already visited")
+        alert("already visited")
         return
     }
 
     sessionStorage.setItem("visited", "true");
     
     //initialises assignments
-    console.log("dummy data")
     //unclean day calculation? but it works
     var day = new Date().getDate();
     if(day < 10){
@@ -422,7 +436,6 @@ function createTutorData() {
     courses.push(prog1)
 
     storeData()
-    console.log(sessionStorage.courses)
 }
 
 //stores data in sessionStorage
@@ -433,22 +446,16 @@ function storeData(){
 // loads data from sessionStorage into courses var
 function loadData() {
     if (!sessionStorage.courses) {
-        console.log("no courses found")
+        alert("no courses found")
         return
     }
 
     courses = JSON.parse(sessionStorage.getItem("courses"))
-    console.log(courses)
     var assignment_containers = document.getElementsByClassName("assignment-container")
-    console.log(assignment_containers)
-    console.log(assignment_containers.length)
+
 
     for (var i = 0; i < assignment_containers.length; i++) {
-        console.log[i]
-        console.log(courses[0])
-        console.log(courses[0].assignments[i])
         var assignment = courses[0].assignments[i]
-        console.log(assignment)
         var assignment_str = "courseName: " + assignment.courseName + " name: " + assignment.name + " dueDate: " + assignment.dueDate + " status: " + assignment.status
         var submission_container = "<div class='submission-container'>" + assignment_str + "<div>"
         assignment_containers[i].innerHTML += submission_container
@@ -481,8 +488,6 @@ function dropFiles(ev) {
 function updateFiles(files){
 if (files.length > 1) {
     alert("only one file allowed")
-    console.log("only one file allowed")
-    // TODO: show error message to user
     return;
 }
 // message that gets displayed
@@ -492,7 +497,6 @@ if (files.length > 1) {
     // get and save file size
     var filesize = files[0].size; 
     if (filesize > 2097152){
-        console.log(filesize)
         document.getElementById("submissionDropFieldText").innerText = "Hier bitte Abgabe einfügen. Die Datei ist zu groß. (Maximal 2MB)";
         return
     }
@@ -500,7 +504,6 @@ if (files.length > 1) {
     msg = filename + ", size: " + filesize + "\n";
 
     // display file names and sizes
-    console.log(msg);
     document.getElementById("submissionDropFieldText").innerText = msg;
     // set assigenment file of selected assignment to name and size of dropped file
     courses[selected_course].assignments[selected_assignment].assignmentFile = {"filename": filename, "filesize": filesize};

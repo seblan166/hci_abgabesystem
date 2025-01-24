@@ -1,7 +1,6 @@
 // variables
 assignment_containers = document.getElementsByClassName("assignment-container")
 
-console.log(assignment_containers)
 
 courses = []
 
@@ -12,7 +11,6 @@ selected_assignment = -1
 function addListeners(html_class, a_function){
     elements = document.getElementsByClassName(html_class)
     Array.from(elements).forEach(element => {
-        console.log(element)
         element.addEventListener("click", a_function);
     });
 }
@@ -26,7 +24,6 @@ function showAssignmentsforCourse(event){
 
     // gets course name
     course_name = course.textContent
-    //console.log(course_name)
 
     document.getElementById("course_not_selected").style.display = "none"
     document.getElementById("course_selected").style.display = "block"
@@ -52,15 +49,44 @@ function showAssignmentsforCourse(event){
         }
     })
 
-    console.log(course_assignments_count)
     if (course_assignments_count == 0) {
         document.getElementById("ass_table").innerHTML += "<tr class='assignment_container'><td colspan='4'>" + "Keine Einträge gefunden" + "</td></tr>"
     }
 
 }
 
-function show_SubmissionContainer(assignment_id){
+function hide_all_SubmissionContainers(){
+    console.log("here")
+    var course = document.getElementById(selected_course)
+    console.log(course)
 
+    document.getElementById("backButton").style.display = "block"
+
+
+    // gets course name
+    course_name = courses[selected_course].name
+    console.log(course_name)
+    
+    var course_assignments_count = 0; 
+    courses.forEach(c => {
+        if (c.name === course_name){
+            course_assignments_count++;
+            selected_course = courses.indexOf(c)
+            c.assignments.forEach(a => {
+                console.log("here2")
+
+                // inserts assignment as row into html
+                var assignment_id = c.assignments.indexOf(a)
+                document.getElementById("submissionContainer-" + assignment_id).style.display = "none"                
+                document.getElementById("download_assignment-" + assignment_id).style.display = "none"
+                document.getElementById("download_graded_assignment-" + assignment_id).style.display = "none"
+            })
+        }
+    })
+}
+
+function show_SubmissionContainer(assignment_id){
+    hide_all_SubmissionContainers()
     var submissionContainer = document.getElementById("submissionContainer-" + assignment_id)
 
     var download_container = document.getElementById("download_assignment-" + assignment_id)
@@ -75,8 +101,6 @@ function show_SubmissionContainer(assignment_id){
 
 
     selected_assignment = assignment_id//event.target.parentNode.id
-    console.log(selected_assignment)
-    console.log("id" + selected_assignment)
     
     if (checkForStatus(selected_assignment) == 0){
         download_container.style.display = "block";
@@ -89,7 +113,7 @@ function show_SubmissionContainer(assignment_id){
         graded_container.style.display = "block"
     }
     else{
-        console.log("assignment wurde schon bearbeitet")
+        alert("assignment wurde schon bearbeitet")
         submissionContainer.style.display = "none";
         download_container.style.display = "none";
         graded_container.style.display = "none"
@@ -98,9 +122,6 @@ function show_SubmissionContainer(assignment_id){
 
 //returns 0 if unbearbeitet, 1 if bearbeitet and 2 if korrigiert
 function checkForStatus(assId){
-    console.log(assId)
-    console.log(courses[selected_course].assignments)
-    console.log(courses[selected_course].assignments[assId])
     var assignment = courses[selected_course].assignments[assId]
     if(assignment.status === "bearbeitet") {return 0;}
     if(assignment.status === "korrigiert") {return 1;}
@@ -109,24 +130,100 @@ function checkForStatus(assId){
 // loads data from sessionStorage into courses var
 function loadData() {
     if (!sessionStorage.courses) {
-        console.log("no courses found")
+        alert("no courses found")
         return
     }
 
     courses = JSON.parse(sessionStorage.getItem("courses"))
-    console.log(courses)
     var assignment_containers = document.getElementsByClassName("assignment-container")
-    console.log(assignment_containers)
-    console.log(assignment_containers.length)
+
 
     for (var i = 0; i < assignment_containers.length; i++) {
-        console.log[i]
-        console.log(courses[0])
-        console.log(courses[0].assignments[i])
         var assignment = courses[0].assignments[i]
-        console.log(assignment)
         var assignment_str = "courseName: " + assignment.courseName + " name: " + assignment.name + " dueDate: " + assignment.dueDate + " status: " + assignment.status
         var submission_container = "<div class='submission-container'>" + assignment_str + "<div>"
         assignment_containers[i].innerHTML += submission_container
     }
+}
+
+function allowDrop(ev) {
+    // prevent opening of dropped files in browser
+    ev.preventDefault();
+    ev.stopPropagation();
+}
+
+
+function fileSelection(input){
+   var files = input.files
+   updateFiles(files)
+}
+
+function dropFiles(ev) {
+    // prevent opening of dropped files in browser
+    ev.preventDefault();
+    ev.stopPropagation();
+    // get files from event
+    var files = ev.dataTransfer.files;
+    updateFiles(files)
+    // too many files
+}
+
+function updateFiles(files){
+    if (files.length > 1) {
+        alert("only one file allowed")
+        // TODO: show error message to user
+        return;
+    }
+    // message that gets displayed
+        var msg = "";
+        // get and save file name
+        var filename = files[0].name;
+        // get and save file size
+        var filesize = files[0].size; 
+        if (filesize > 2097152){
+            document.getElementById("submissionDropFieldText").innerText = "Hier bitte Korrektur einfügen. Die Datei ist zu groß. (Maximal 2MB)";
+            return
+        }
+         // append to message
+        msg = filename + ", size: " + filesize + "\n";
+    
+        // display file names and sizes
+        document.getElementById("submissionDropFieldText").innerText = msg;
+        // set assigenment file of selected assignment to name and size of dropped file
+        courses[selected_course].assignments[selected_assignment].assignmentFile = {"filename": filename, "filesize": filesize};
+        storeData();
+    }
+
+    // use for kurse.html
+function submit(){
+    text_element = document.getElementById("submissionDropFieldText")
+    if(!(text_element.textContent === "Hier bitte Korrektur einfügen")){
+        if(!(text_element.textContent === "Hier bitte Korrektur einfügen. Die Datei ist zu groß. (Maximal 2MB)")){
+            // change status 
+            courses[selected_course].assignments[selected_assignment].status = "bearbeitet"
+            document.getElementById(selected_assignment).children[2].innerHTML = "bearbeitet"
+            storeData()
+            
+            //let surfer surf
+            var surfer = document.getElementById("surfer")
+            surfer.src = 'images/surfer_doku.gif'
+            resetGif()
+            
+            //hide submissioncontainer when animation ends
+            setTimeout(hide_SubmissionContainer, 4000)
+        }
+    }
+}
+
+function hide_SubmissionContainer(){
+    document.getElementById("submissionContainer").style.display = "none"
+}
+
+function storeData(){
+    sessionStorage.setItem("courses", JSON.stringify(courses))
+}
+
+function resetGif() {
+    const surfer = document.getElementById('surfer');
+    surfer.src = "images/surfer_doku.gif" + "?t=" + new Date().getTime(); // Zeitstempel anhängen
 }
